@@ -1,0 +1,258 @@
+---
+title: "Randomized_Block_Designs_I_II_Examples"
+author: "Sean Hellingman"
+format: pdf
+editor: visual
+---
+
+# Part I
+
+### Base R RCB
+
+```{r}
+
+# 3 levels and 3 blocks #
+
+set.seed(2030)
+f <- factor(c(1,2,3)) # 3 Levels in your factor
+
+            
+b1t <- sample(f,3) # randomize each block
+b2t <- sample(f,3)
+b3t <- sample(f,3)
+t <- c(b1t, b2t, b3t) # Combine treatment vectors
+
+block <- factor(rep(c("block.1","block.2", "block.3"), each = 3)) #label the block names
+fnum <- rep(f,3)
+plan <- data.frame(Block.Col.Name = block, EU.Number = fnum, treatment = t)
+
+
+
+```
+
+### Agricolae RCB
+
+```{r}
+
+library(agricolae)
+treat <- c(1,2,3)
+
+outdesign <- design.rcbd(treat, 3, seed = 2020)
+rcb <- outdesign$book
+
+levels(rcb$block) <- c("block.1", "block.2", "block.3")
+```
+
+## Example 1 from slides
+
+```{r}
+
+
+
+
+```
+
+## Example 2 from slides
+
+Data description:
+
+*The effect of the drug d-amphetamine sulfate on the behavior of rats was the object of the experiment. The behavior under study was the rate at which water-deprived rats pressed a lever to obtain water.*
+
+rat: Identifier for each rat used in the drug experiment (10 total).\
+dose: Dose of d-amphetamine sulfate in milligrams (0.0, 0.5, 1.0, 1.5, 2.0)\
+rate: Rate that the rat pressed the leaver to get water (response variable).
+
+```{r}
+
+
+library(daewr)
+data("drug")
+
+
+
+
+```
+
+## Example 3 from slides
+
+```{r}
+
+
+
+
+```
+
+```{r}
+
+# R <-do.call("cbind", split(data$response, data$block))
+# y <-apply(R, 1, mean )
+# x <-as.double( levels(data$factor) )
+# plot( x, y, xlab = "factor", ylab = "response" )
+# xx <-seq( 0.0, 2.0, .1 ) #Numeric sequence of factor levels
+# rate.quad <-lm( y ~ poly( x, 2) ) # Change 2 to change polynomial level
+# lines(xx, predict( rate.quad, data.frame( x = xx) )) #Draw relationship
+
+
+
+
+```
+
+## Example 4 from slides
+
+```{r}
+
+
+
+
+```
+
+## Example 5 from slides
+
+$\hat{\sigma}^2_{crd} = \frac{ssBlk + ssE}{t(b-1)}$
+
+```{r}
+
+
+
+
+
+```
+
+## Example 6 from slides
+
+```{r}
+
+
+
+library(daewr) 
+
+
+
+
+
+```
+
+# Part II
+
+## Example 1 from slides
+
+This experiment was conducted by Festing (2003) to deter-mine whether BHA (a common antioxidant used in processed foods) induced activity of the liver enzyme EROD in mice and whether this activity was in-dependent of the strain of mice.
+
+block: Blocked (1, 2) in time (as experimental conditions can change drastically from one time to another).\
+strain: The strain or species of the mouse (129Ola, A/J, BALB/c, NIH).\
+treat: Was the mouse treated with BHA or not (treated, control).\
+y: The activity level of the enzyme EROD in the liver.
+
+```{r}
+
+library(daewr)
+library(sjPlot)
+
+data(bha)
+
+
+
+
+
+# plot_model(model,type = "int")
+# 
+# with(bha, (interaction.plot(treat, strain, y, type = "b", pch = c(24,22), leg.bty = "o")))
+
+```
+
+## Example 2 from slides
+
+An experiment was conducted to determine the ideal tee height for driving a golf ball as far as possible.
+
+To make a generalization, a representative group of golfers had to be chosen. As golfers are able to hit more than one shot before becoming fatigued, each golfer was chosen to be the block and the tee height was randomized within each block (golfer). Each golfer hit *r*=5 balls from each of the three (*t*=3) heights. Nine golfers (*b*=9) were used in the experiment.
+
+id: golfer id (block)\
+teehgt: treatment factor (1, 2, 3)\
+- 1: Entire ball below crown\
+- 2: Half the ball above the crown\
+- 3: Bottom of ball at top of club-face\
+cdistance: response variable, shot distance
+
+```{r}
+
+library(daewr)
+
+data(rcb)
+
+
+
+```
+
+## Example 3 from slides
+
+```{r}
+
+## 1 ##
+
+# cellmeans <-tapply( data$response, list(rcb$block,
+# rcb$factor), mean)
+# dim(cellmeans) <-NULL
+# factor <-factor(rep(c(1,2,...,t), each = b) )
+# block<-factor(rep(c(1,2,...,b), t) )
+# 
+# model <-aov(cellmeans ~ block + factor)
+# 
+# summary(model)
+
+
+
+## 2 ##
+
+# model.tables(model, type = "means")$tables$factor
+
+## 3 ##
+
+# TukeyHSD(model,"factor")
+
+```
+
+#### LSD in R
+
+```{r}
+
+
+library(agricolae)
+treatments <- c(1,2,3)
+outdesign <- design.lsd(treatments, seed = 2030)
+lsd <- outdesign$book
+levels(lsd$row) <- c("Block1.A", "Block1.B", "Block1.C")
+levels(lsd$col) <- c("Block2.A", "Block1.B", "Block1.C")
+
+lsd
+
+
+
+```
+
+## Example 4 from slides
+
+```{r}
+
+library(agricolae)
+
+
+
+
+
+
+```
+
+## Example 5 from slides
+
+The purpose was to test the bioequivalence of three formulations (A=solution, B=tablet, C=capsule) of a drug as measured by the AUC (Area Under the Curve) as it relates to the concentration of the drug in the blood as a function of time since consumption.
+
+Three subjects (people) took each formulation of the drug with appropriate *washout* periods between and the AUC was calculated based on blood samples.
+
+Each subject is treated as a block as individuals will metabolize drugs differently. Due to the nature of the study, trials at different times, the period was also selected as a block.
+
+```{r}
+
+data(bioeqv)
+
+
+```

@@ -1,0 +1,222 @@
+---
+title: "ADSC2030 Completely Randomized Designs with One Factor Examples"
+author: "Sean Hellingman"
+format: html
+editor: visual
+---
+
+# Part I
+
+## Illustrative Example 1B from slides
+
+Treatment factor:\
+Experimental unit:\
+Response:\
+Other factors to be held constant:
+
+## Example 1 from slides
+
+```{r}
+
+set.seed(7638) # reproducibility 
+
+
+
+
+```
+
+## Illustrative Example 2 from slides
+
+1 Objectives:\
+2 Experimental Units:\
+3 Response/Dependent Variable:\
+4 Independent and Lurking Variables:\
+5 Pilot Tests (hypothetical):\
+6 Choose Experimental Design:\
+7 Determine the number of Replicates:\
+8 Randomize Experimental Units to Treatment Levels:
+
+## Example 2 from slides
+
+```{r}
+#Height <- c(6.5,9.75,6.5,4.5,10.5,5.0,5.50,6.75,9.50,8.75,6.50,8.25)
+
+library(daewr)
+data('bread')
+
+
+
+```
+
+## Example 3 from slides
+
+```{r}
+
+library(gmodels)
+#fit.contrast()
+
+
+```
+
+## Example 4 from slides
+
+```{r}
+
+
+
+```
+
+# Part II
+
+## Example 1 from slides
+
+```{r}
+
+library(car)
+
+
+```
+
+## Example 2 from slides
+
+```{r}
+
+library(MASS)
+
+boxcox(lm2)
+
+```
+
+## Example 3 from slides
+
+```{r}
+
+
+
+
+
+
+```
+
+## Example 4 from slides
+
+min:\
+max:\
+Delta:\
+Alpha:\
+Sigma:
+
+```{r}
+
+library(daewr)
+
+
+# rmin <- 
+# rmax <- 
+# alpha <- rep(,rmax - rmin + 1)
+# sigma <- sqrt()
+# nlevels <- t #3
+# nreps <- rmin:rmax
+# Delta <-  #Chosen by us
+# power <- Fpower1(alpha,nlevels,nreps,Delta,sigma)
+# 
+# power #results
+
+
+#Fpower()
+
+```
+
+## Example 5 from slides
+
+```{r}
+
+library(daewr)
+
+# 1 #
+
+
+# #H0: mu45 = 1/2(mu35 + mu40)
+# 
+# fit.contrast(anov1,"time", )
+# 
+# #0: mu35 = mu40
+# 
+# fit.contrast(anov1,"time", )
+
+
+
+# con <- matrix(c(1, -1/3, -1/3, -1/3, 0, 1, -1, 0, 0, 0,
+# 1, -1 ), byrow = TRUE, nrow = 3) # row matrix of comparisons
+
+
+# # 2 #
+# 
+# contrasts() <- contr.poly(3)
+# contrasts()
+
+
+
+
+```
+
+## Example 6 from slides
+
+```{r}
+
+## Tukey's ##
+
+# model <- aov(response ~ factor, data=data)
+# model.tukey <- TukeyHSD(model,ordered = TRUE) # All
+# pairs
+# model.tukey # Print results
+
+
+
+## N-K ##
+
+# library(agricolae)
+# model <- aov(response ~ factor, data=data)
+# compare <- SNK.test(model,"factor",alpha = 0.05)
+# compare # Print results
+
+
+
+
+```
+
+## Example 7 from slides
+
+```{r}
+
+library(multcomp)
+
+#glht() 
+
+# relevel(data$variable, ref = "New.Reference") # to re-order if needed
+
+# results.dun <- glht(model, linfct = mcp(time = "Dunnett"),
+#                     alternative = "greater")
+# 
+# summary(results.dun)
+
+```
+
+## Exercises
+
+```{r}
+
+# set.seed(2030) #Reproducibility
+# r <- 5
+# t <- 4
+# n <- t*r
+# 
+# f <- factor(rep( c("25", "30", "35", "40"), each= r)) #Repeat the factor levels for r replications
+# fac <- sample(f, t*r) #Randomization
+# eu <- 1:n #index for each experimental unit
+# plan <- data.frame(Unit = eu, FactorLevel = fac) 
+
+
+
+
+```

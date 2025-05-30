@@ -1,0 +1,205 @@
+---
+title: "ADSC2030 Factorial Designs I II Examples"
+author: "Sean Hellingman"
+format: pdf
+editor: visual
+---
+
+## Illustrative Example 1
+
+Experimental unit:\
+Difference between replicates and duplicates for this design:\
+Treatment factor:\
+Possible lurking variables:\
+Why randomize:
+
+## Example 1 from slides
+
+```{r}
+
+library(ggplot2)
+library(MASS)
+
+Bread <- read.csv("Bread.csv")
+colnames(Bread)
+
+#ggplot(data=Bread,mapping = aes(x = , y = , color = )) +
+#  geom_point()+
+#  labs(title = "",
+#       x = "",
+#       y = "")+ 
+#  geom_smooth() #Add curve to plot
+
+```
+
+Code for two-factor randomization:
+
+```{r}
+
+
+D <- expand.grid(Factor.1=as.factor(c("A","B","C","D")),
+                 Factor.2=as.factor(c("E","F","G","H")))
+
+D <- rbind(D,D)
+
+set.seed(2591)
+D <-D[order(sample(1:nrow(D))), ] 
+
+```
+
+## Example 2 from slides
+
+```{r}
+
+
+
+
+```
+
+## Example 3 from slides
+
+```{r}
+
+library(daewr)
+data("COdata")
+
+
+```
+
+## Example 4 from slides
+
+```{r}
+
+
+
+
+```
+
+## Example 5 from slides
+
+```{r}
+
+# model.tables(model, type = "means", se = T )
+
+```
+
+```{r}
+library(gmodels)
+
+c1 <-c(-1/2, 0, 1/2) 
+c2 <-c(.5, -1, .5)
+cm <-cbind( c1, c2 )
+
+mod2 <- aov( CO ~ Eth * Ratio, contrasts = list(Eth = cm, Ratio = cm ), data = COdata) 
+
+summary(mod2)
+
+c <- rbind('Ethanol 0.3 vs 0.1' = c(0,1,0,0,0,0,0,0,0), 'Ratio 16 vs 14' = c(0,0,0,1,0,0,0,0,0) ) 
+
+estimable(mod2,c)
+
+#lm1 <- lm(CO ~ Eth + Ratio + Eth:Ratio, data = COdata)
+#summary(lm1)
+
+#c(1,0,0,0,0,0,0,0,0)
+#c(0,0,0,0,1,0,0,0,0)
+```
+
+-   The first three elements (0, 0, 0) correspond to the intercept and the main effects of the "Eth" factor for the levels 0.2 and 0.3.
+
+-   The next two elements (0, 0) correspond to the main effects of the "Ratio" factor for the levels 15 and 16.
+
+-   The last four elements (0, 0, 0, 0) correspond to the interaction terms between "Eth" and "Ratio."
+
+## Example 6 from slides
+
+```{r}
+
+
+
+```
+
+### Interaction Plots
+
+```{r}
+
+with(COdata, (interaction.plot(Eth, Ratio, CO, type =
+"b", pch = c(18,24,22), leg.bty = "o", main =
+"Interaction Plot of Ethanol and air/fuel ratio",
+xlab = "Ethanol",ylab = "CO emissions")))
+
+
+
+```
+
+It is clear that an interaction exists due to the modulated effects of the ethanol levels on the CO emissions for each ratio.
+
+## Example 7 from slides
+
+```{r}
+
+
+
+
+```
+
+## Example 8 from slides
+
+```{r}
+
+
+
+```
+
+## Example 9 from slides
+
+```{r}
+
+COdatam <- COdata 
+COdatam[18, 3] <- NA # remove one observation
+
+
+
+```
+
+## Example 10 from slides
+
+#### Data:
+
+```{r}
+
+Cellmeans <-tapply( COdata$CO, list(COdata$Eth, COdata$Ratio) , mean ) 
+dim(Cellmeans) <-NULL 
+Eth <-factor(rep(c(.1, .2, .3), 3)) 
+Ratio <-factor(rep(c(14,15,16), each=3)) 
+cells <-data.frame(Cellmeans, Eth, Ratio) # Use cells 
+
+
+
+
+```
+
+#### Method I
+
+```{r}
+
+
+
+```
+
+#### Method II
+
+## Example 11 from slides
+
+```{r}
+
+
+library(dplyr)
+library(daewr)
+data("virus")
+
+ 
+
+
+
+```

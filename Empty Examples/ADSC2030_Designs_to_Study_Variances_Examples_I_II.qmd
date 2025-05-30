@@ -1,0 +1,271 @@
+---
+title: "ADSC2030 Designs to Study Variances Examples I II"
+author: "Sean Hellingman"
+format: pdf
+editor: visual
+---
+
+## Example 1 from slides
+
+```{r}
+
+library(daewr)
+library(lme4)
+
+data("soupmx")
+
+# library(lme4)
+# model <- lmer(response ~ 1 + (1|group), data = data)
+# summary(model)
+
+```
+
+## Example 2 from slides
+
+```{r}
+
+
+# pr1 <-profile(fm1M <-lmer(response ~ 1 + (1| group),
+# data = data, REML = FALSE))
+# 
+# confint(pr1)
+
+
+
+```
+
+## Example 3 from slides
+
+```{r}
+
+# nu2 <-36:44
+# chiu <- qchisq(.975, nu2)
+# chil <- qchisq(.025, nu2)
+# width <- nu2 * (chiu - chil) / (chil * chiu)
+# halfw <- width/2
+# data.frame(nu2, width, halfw)
+
+
+
+```
+
+## Example 4 from slides
+
+```{r}
+
+# alpha <-.05
+# rho <- #Enter rho
+# t <-rep(5:7, each = 3)
+# r <-rep(2:4, 3)
+# nu_1 <-t-1
+# nu_2 <-t*(r - 1)
+# fcrit <-qf( 1 - alpha, nu_1, nu_2 )
+# factor <-1 / ( 1 + r * rho )
+# plimit <-factor * fcrit
+# power <-1 - pf( plimit, nu_1, nu_2 )
+# data.frame( t, r, power)
+
+
+```
+
+## Example 5 from slides
+
+```{r}
+
+library(lme4)
+library(daewr)
+data("gagerr")
+
+
+
+
+
+```
+
+## Example 6 from slides
+
+```{r}
+
+
+library(daewr) 
+# options(digits = 3) 
+#vci(confl = .90, c1 = .05, ms1 = , nu1 = , c2 = .05, ms2 = , nu2 = )
+
+
+```
+
+```{r}
+
+# cellmeans <-tapply(data$response, list(data$factor.A, data$factor.B), mean)
+# 
+# dim(cellmeans) <- NULL
+# factor.A <- factor(rep(c(1,2,...,a), each = b) )
+# factor.B <- factor(rep(c(1,2,...,b), a) )
+# 
+# model <-aov(cellmeans ~ factor.A + factor.B + factor.A:factor.B)
+# 
+# summary(model)
+
+
+
+```
+
+## Example 7 from slides
+
+```{r}
+
+data("blood")
+
+
+
+
+
+cbar <- (3*4)/(1/1 + 1/3 + 1/3 + 1/3 + 1/1 + 1/2 + 1/2 + 1/3 + 1/1 + 1/3 + 1/3 + 1/2)
+
+# c1 <- 1/4*cbar
+# c2 <- c1
+
+#vci(confl = .90, c1 = .05, ms1 = , nu1 = , c2 = .05, ms2 = , nu2 = )
+
+
+```
+
+```{r}
+
+data("blood")
+
+## 1 ##
+
+
+
+## 2 ##
+
+
+
+
+## Alternative Method ##
+
+
+
+
+
+
+```
+
+# Part II
+
+## Example 1 from slides
+
+```{r}
+
+library(daewr)
+library(lme4)
+data(rubber)
+
+
+# m1 <- lmer(response ~ 1 + (1|A) + (1|A:B) + (1|A:B:C), data = data)
+
+
+```
+
+## Example 2 from slides
+
+```{r}
+
+data(polymer)
+
+
+
+
+# var(lot)/(TotalVariance)*100
+```
+
+## Example 3 from slides
+
+```{r}
+
+
+
+
+
+
+
+
+
+# pr1 <-profile(lmer(strength ~ 1 + (1|lot) + (1|lot:box)+  (1|lot:box:prep), data = polymer)) # REML = FALSE
+# confint(pr1) 
+
+
+```
+
+## Example 4 from slides
+
+```{r}
+library(lme4)
+data("pesticide")
+
+c1 <-c( -.5, .5 ) 
+
+
+
+
+# model <- lmer(response ~ 1 + factor.A + factor.B +
+# factor.A:factor.B + (1|random.factor:factor.A:factor.B),
+# contrasts = list(factor.A = c1, factor.B = c1), data =
+# data)
+```
+
+#### Tukey's adjusted pairwise comparisons of the means
+
+```{r}
+
+library(lsmeans)
+
+# lsmeans(model, pairwise ~ tech, adjust = c("tukey"))
+
+# anova(model)
+```
+
+## Example 5 from slides
+
+#### From Example 4
+
+```{r}
+
+## Histogram ##
+
+intercept.fix =fixef(model)["(Intercept)"]
+
+#plot the dev.yr fixed effects
+est.eff = coef(model)["plot:form:tech"] #coef(m2) Contains fixed intercept plus the
+
+#histogram of the random effects
+hist(est.eff$`plot:form:tech`[,"(Intercept)"]-intercept.fix) #random effects are stored with the fixed intercept -> deducted
+
+## Q-Q plot##
+
+qqnorm( ranef(model)$`plot:form:tech`[[1]], main=
+"Label for Q-Q Plot", ylab= "EBLUP", xlab = "Normal
+Score" )
+
+```
+
+#### From Example 2
+
+```{r}
+
+
+
+
+
+```
+
+## Example 6 from slides
+
+```{r}
+
+library(sjPlot)
+
+plot_model(model, type = "re")
+
+```

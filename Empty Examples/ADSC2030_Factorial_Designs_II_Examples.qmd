@@ -1,0 +1,115 @@
+---
+title: "ADSC2030 Factorial Designs II Examples"
+author: "Sean Hellingman"
+format: pdf
+editor: visual
+---
+
+## Example 1 from slides
+
+```{r}
+set.seed(2591)
+
+D <- expand.grid(Factor.1=as.factor(c("A","B","C","D")),
+                 Factor.2=as.factor(c("E","F","G","H")),
+                 Factor.2=as.factor(c("I","J","K","L")))
+
+D <- rbind(D,D)
+
+D <-D[order(sample(1:nrow(D))), ] 
+
+
+```
+
+## Example 2 from slides
+
+*The company would like to experiment by testing different configurations of their Web page to see if they can increase the number of visitors to their site that actually sign up.*
+
+*For example, factor A was the background alternatives for the page with three options. Factor B was the font size in the main banner, with three levels; factor C was the text color with two alternatives; and factor D was a choice between a sign-up button or link.*
+
+```{r}
+
+library(daewr)
+data(web)
+?web #Data
+
+# Proportion of success
+web$prop <- web$signup/web$visitors
+
+# A+B+C+D+A:B+A:C+A:D+B:C+B:D+C:D+A:B:C+A:B:D+A:C:D+B:C:D
+
+```
+
+## Example 3 from slides
+
+```{r}
+
+library(sjPlot)
+
+#plot_model(lm2, type = "int")
+#lm2 <- lm(CO ~ Eth + Ratio + Eth:Ratio, data = COdata)
+
+
+```
+
+## Example 4 from slides
+
+*Students in a university electronics lab often complained that voltage measurements made on a circuit they constructed in class were inconsistent.\
+They decided to conduct an experiment to try to identify the source of the variation.*
+
+A=the ambient temperature where the volt-age measurement was made\
+B=the voltmeter warm-up time\
+C=the time the power was connected to the circuit before the measurement was taken\
+The response *y* was the measured voltage in millivolts.
+
+```{r}
+library(DoE.base)
+
+data(volt)
+
+# contr.FrF2
+
+```
+
+## Example 5 from slides
+
+```{r}
+
+#plot_model(model, type = "int", terms = c("",""))
+
+
+```
+
+## Example 6 from slides
+
+```{r}
+
+
+
+```
+
+## Example 7 from slides
+
+A Excess of Reactant A (over molar amount)\
+B Catalyst Concentration\
+C Pressure in the Reactor\
+D Temperature of the Coated Mixing-T\
+Y Percent conversion calculated from the product produced during a run.
+
+```{r}
+
+data('chem',package = "daewr")
+
+
+```
+
+## Example 8 from slides
+
+```{r}
+
+data("BoxM")
+
+#Gaptest()
+
+
+```

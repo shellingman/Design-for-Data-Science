@@ -1,0 +1,162 @@
+---
+title: "ADSC2030 Incomplete Block Designs Examples"
+author: "Sean Hellingman"
+format: pdf
+editor: visual
+---
+
+# Part I
+
+## Example 1 from slides
+
+```{r}
+
+library(daewr)
+
+
+
+
+
+
+
+```
+
+## Example 2 from slides
+
+```{r}
+
+library(AlgDesign)
+
+# BIBsize(t,k)
+
+# BIB <- optBlock( ~., withinData = factor(1:t),blocksizes = rep(k,b))
+# 
+# des <- BIB$rows
+# dim(des) <- NULL
+# 
+# des <- matrix(des, nrow = b, ncol = k, byrow = TRUE,
+# dimnames = list(c("Block1", ..., "Blockb"), c("unit1", ..., "unitk")))
+# 
+# des
+
+
+
+```
+
+## Example 3 from slides
+
+```{r}
+library(lsmeans)
+
+## 1 ##
+data(taste)
+
+
+## 2 ##
+
+# model <- aov(response ~ block + factor, data = data)
+
+## 3 ##
+
+# lsmeans(model, pairwise ~ factor, adjust = ("tukey"))
+
+
+
+
+```
+
+## Example 4 from slides
+
+```{r}
+
+
+
+
+
+```
+
+# Part II
+
+## Example 1 from slides
+
+```{r}
+
+library(daewr)
+library(lsmeans)
+
+data(BPmonitor)
+
+
+
+
+
+# model <- aov(response ~ block + factor, data = data)
+# summary(model)
+# 
+# 
+# lsmeans(model, pairwise ~ factor, adjust = ("tukey"))
+
+```
+
+## Example 2 from slides
+
+```{r}
+
+
+set.seed(2030)
+library(agricolae)
+# library(knitr)
+
+
+
+# treat <- c(1, ..., t)
+# des <- design.cyclic(treat, k = k, r = r)
+# des$book
+#kable(des$book)
+
+
+```
+
+## Example 3 from slides
+
+```{r}
+
+set.seed(2030)
+
+
+
+# treat <- c(1, ..., t)
+# RCD <- design.cyclic(treat, k = k, r = r, rowcol = TRUE)
+# RCD$book
+
+
+```
+
+## Example 4 from slides
+
+**From Example 5 (Randomized Block Designs II):**
+
+The purpose was to test the bioequivalence of three formulations (A=solution, B=tablet, C=capsule) of a drug as measured by the AUC (Area Under the Curve) as it relates to the concentration of the drug in the blood as a function of time since consumption.
+
+Three subjects (people) took each formulation of the drug with appropriate *washout* periods between and the AUC was calculated based on blood samples.
+
+Each subject is treated as a block as individuals will metabolize drugs differently. Due to the nature of the study, trials at different times, the period was also selected as a block.
+
+**Added 3 more formulations of the drug (D = Injection, E = Inhaler, F = Topical)\
+Each subject still only received formulations, therefore 3 more subjects were needed.**
+
+```{r}
+
+RCD <- read.csv("RCD.csv")
+
+
+
+
+# model5 <- aov(AUC ~ Subject + Period + Treat, data = data)
+# summary(model5)
+
+
+# lsmeans(model, pairwise ~ factor, adjust = ("tukey"))
+
+
+```
